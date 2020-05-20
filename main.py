@@ -46,11 +46,11 @@ def check_if_is_not_in_db_and_add(new_url, next_url):
 def main(url):
 
     given_url = url
-    queue = [given_url]
+    urls_list = [given_url]
 
-    while len(queue):
-        next_url = queue[0]
-        queue.remove(queue[0])
+    while len(urls_list):
+        next_url = urls_list[0]
+        urls_list.remove(urls_list[0])
 
         response = requests.get(next_url)
 
@@ -68,13 +68,13 @@ def main(url):
             for link in soup.find_all('a'):
                 link = str(link.get('href'))
                 if link.startswith('http'):
-                    queue.append(link)
+                    urls_list.append(link)
                     print(link)
                 elif link.startswith('#'):
                     continue
                 elif link is not None and not link.startswith('#'):
                     new_link = given_url + link
-                    queue.append(new_link)
+                    urls_list.append(new_link)
                     print(new_link)
 
 
